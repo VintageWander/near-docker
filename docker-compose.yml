@@ -1,0 +1,63 @@
+version: "3.9"
+
+services:
+  runtime:
+    container_name: "runtime"
+    image: "cruizba/ubuntu-dind:latest"
+    privileged: true
+    entrypoint: [ "dockerd" ]
+
+  near:
+    container_name: "near"
+    image: "cruizba/ubuntu-dind:latest"
+    privileged: true
+    depends_on:
+      - runtime
+    ports:
+      - 8330:8330
+      - 8331:8331
+      - 8332:8332
+      - 8333:8333
+      - 8334:8334
+    command: >
+      /bin/bash -c
+      "
+        # Install kurtosis-cli;
+        wget -O kurtosis-cli.tar.gz https://github.com/kurtosis-tech/kurtosis-cli-release-artifacts/releases/download/0.82.22/kurtosis-cli_0.82.22_linux_arm64.tar.gz;
+        tar -xvzf kurtosis-cli.tar.gz;
+        chmod +x kurtosis;
+        mv kurtosis /usr/bin/kurtosis;
+
+        # Start the kurtosis engine, but auto skip the optional email prompt
+        echo -e "\n" | kurtosis engine start;
+
+        # Install nodejs
+        apt-get update  -y;
+        apt-get install -y ca-certificates curl gnupg;
+        mkdir -p /etc/apt/keyrings;
+        curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg;
+
+        echo \"deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_20.x nodistro main\" | tee /etc/apt/sources.list.d/nodesource.list;
+
+        apt-get update  -y;
+        apt-get install -y nodejs;
+        npm install -g npm;
+
+        # Install yarn (due to the requirements)
+        npm install -g yarn;
+
+        # Install near-cli
+        npm install -g near-cli;
+
+        # Get the local near blockchain launch script
+        curl -o ~/launch-local-near-cluster.sh https://raw.githubusercontent.com/kurtosis-tech/near-package/master/launch-local-near-cluster.sh -L;
+
+        # Grants permission to that script;
+        chmod u+x ~/launch-local-near-cluster.sh;
+
+        # Launch the script
+        ~/launch-local-near-cluster.sh;
+
+        # Run infinitely
+        while true; do sleep 1000; done
+      "
