@@ -14,8 +14,12 @@ services:
     depends_on:
       - runtime
     ports:
+      - 32769:32769
+      - 32770:32770
       - 8330:8330
+      - 18080:18080
       - 8331:8331
+      - 8333:8333
       - 8332:8332
       - 8334:8334
     command: >
@@ -55,7 +59,7 @@ services:
         chmod u+x ~/launch-local-near-cluster.sh;
 
         # Launch the script
-        ~/launch-local-near-cluster.sh;
+        ~/launch-local-near-cluster.sh | tee ~/launch-local-near-cluster.log;
 
         # Run infinitely
         while true; do sleep 1000; done
