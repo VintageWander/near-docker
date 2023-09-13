@@ -13,7 +13,7 @@ NODE_RPC_URL_PROPERTY="near_node_rpc_url"
 HELPER_URL_PROPERTY="contract_helper_service_url"
 EXPLORER_URL_PROPERTY="explorer_url"
 WALLET_URL_PROPERTY="wallet_url"
-ALIAS_NAME="local_near"
+ALIAS_NAME="local-near"
 NEAR_KURTOSIS_DIRPATH="${HOME}/.neartosis"
 NEAR_KURTOSIS_PACKAGE="github.com/kurtosis-tech/near-package"
 KURTOSIS_CMD="kurtosis"
@@ -141,4 +141,4 @@ echo "         ${KURTOSIS_CMD} clean -a"
 echo ""
 echo "============================================================ SUCCESS ================================================================================"
 
-alias ${ALIAS_NAME}='${NEAR_CLI_NEAR_ENV_ENVVAR}=\"${LOCALNET_NEAR_ENV}\" ${NEAR_CLI_NETWORK_ID_ENVVAR}=\"${network_id}\" ${NEAR_CLI_NODE_URL_ENVVAR}=\"${node_url}\" ${NEAR_CLI_KEY_FILEPATH_ENVVAR}=\"${validator_key_filepath}\" ${NEAR_CLI_WALLET_URL_ENVVAR}=\"${wallet_url}\" ${NEAR_CLI_CONTRACT_HELPER_URL_ENVVAR}=\"${contract_helper_url}\" ${NEAR_CLI_CONTRACT_HELPER_ACCOUNT_ENVVAR}=\"${master_account}\" ${NEAR_CLI_EXPLORER_URL_ENVVAR}=\"${explorer_url}\" near'
+echo "alias ${ALIAS_NAME}='${NEAR_CLI_NEAR_ENV_ENVVAR}=\"${LOCALNET_NEAR_ENV}\" ${NEAR_CLI_NETWORK_ID_ENVVAR}=\"${network_id}\" ${NEAR_CLI_NODE_URL_ENVVAR}=\"${node_url}\" ${NEAR_CLI_KEY_FILEPATH_ENVVAR}=\"${validator_key_filepath}\" ${NEAR_CLI_WALLET_URL_ENVVAR}=\"${wallet_url}\" ${NEAR_CLI_CONTRACT_HELPER_URL_ENVVAR}=\"${contract_helper_url}\" ${NEAR_CLI_CONTRACT_HELPER_ACCOUNT_ENVVAR}=\"${master_account}\" ${NEAR_CLI_EXPLORER_URL_ENVVAR}=\"${explorer_url}\" near'" >>~/.bash_profile
