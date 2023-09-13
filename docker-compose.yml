@@ -18,6 +18,7 @@ services:
       - 32770:32770
       - 8330:8330
       - 18080:18080
+      - 8080:8080
       - 8331:8331
       - 8333:8333
       - 8332:8332
@@ -53,7 +54,9 @@ services:
         npm install -g near-cli;
 
         # Get the local near blockchain launch script
-        curl -o ~/launch-local-near-cluster.sh https://raw.githubusercontent.com/kurtosis-tech/near-package/master/launch-local-near-cluster.sh -L;
+        # I use curl here to download, instead of loading the local file onto the container
+        # Making this compose stack can be run independently
+        curl -o ~/launch-local-near-cluster.sh https://raw.githubusercontent.com/VintageWander/near-docker/main/launch-local-near-cluster.sh -L;
 
         # Grants permission to that script;
         chmod u+x ~/launch-local-near-cluster.sh;
