@@ -28,8 +28,13 @@ services:
     command: >
       /bin/bash -c
       "
+        # Update dependencies
+        apt update;
+        apt upgrade -y;
+        apt install -y ca-certificates curl gnupg;
+        
         # Install kurtosis-cli;
-        wget -O kurtosis-cli.tar.gz https://github.com/kurtosis-tech/kurtosis-cli-release-artifacts/releases/download/0.85.42/kurtosis-cli_0.85.42_linux_arm64.tar.gz;
+        wget -O kurtosis-cli.tar.gz https://github.com/kurtosis-tech/kurtosis-cli-release-artifacts/releases/download/0.87.2/kurtosis-cli_0.87.2_linux_arm64.tar.gz;
         tar -xvzf kurtosis-cli.tar.gz;
         chmod +x kurtosis;
         mv kurtosis /usr/bin/kurtosis;
@@ -38,15 +43,8 @@ services:
         echo -e "\n" | kurtosis engine start;
 
         # Install nodejs
-        apt-get update  -y;
-        apt-get install -y ca-certificates curl gnupg;
-        mkdir -p /etc/apt/keyrings;
-        curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg;
-
-        echo \"deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_21.x nodistro main\" | tee /etc/apt/sources.list.d/nodesource.list;
-
-        apt-get update  -y;
-        apt-get install -y nodejs;
+        curl -fsSL https://deb.nodesource.com/setup_21.x | bash - &&\
+        apt install -y nodejs;
         npm install -g npm;
 
         # Install yarn (due to the requirements)
